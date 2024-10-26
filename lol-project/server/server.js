@@ -32,8 +32,8 @@ app.get('/rito/:tagLine/*', async (req, res) => {
   const apiKey = config.API_KEY; // Riot API ключ
 
   try {
-    // Формируем финальный URL для запроса к Riot API
-    const riotApiUrl = `https://${region}.api.riotgames.com/${riotPath}`;
+    // Формируем финальный URL для запроса к Riot API. Из-за возникших проблем с подстановкой дополнительных параметров в запрос, пришлось писать тут квакозябру
+    const riotApiUrl = `https://${region}.api.riotgames.com/${riotPath}${req.originalUrl.split('?')[1] ? `?${req.originalUrl.split('?')[1]}` : ''}`;
     console.log(`URL запроса к Riot API: ${riotApiUrl}`); // Логируем URL для проверки
 
     // Отправляем запрос к Riot API

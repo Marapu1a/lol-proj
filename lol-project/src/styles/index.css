@@ -1,0 +1,236 @@
+/* Основные цвета */
+:root {
+  --background-color: #1a1a1a; /* Темный фон */
+  --primary-color: #5e4b8a; /* Основной акцент (глубокий фиолетовый) */
+  --secondary-color: #f7c331; /* Вторичный акцент (яркий золотистый) */
+  --highlight-color: #3bc1b1; /* Яркий акцент (светлый аква) */
+  --text-color: #ffffff; /* Цвет текста (белый) */
+  --muted-text-color: #b0b0b0; /* Умеренный цвет текста (светло-серый) */
+  --dark-purple: #3c2c5e; /* Дополнительный темный фиолетовый для контрастов */
+  --deep-blue: #0e1e4d; /* Темно-синий для акцентов */
+}
+
+/* Общие стили */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Roboto Slab', serif;
+  line-height: 1.5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-color);
+  margin: 0;
+}
+
+/* Стили для кнопок */
+button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+}
+
+/* Стили для ссылок */
+a {
+  color: var(--highlight-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Отступы */
+.container {
+  padding: 20px;
+}
+
+/* Стили для карточек */
+.card {
+  background-color: #1a1a1a; /* Темный фон для карточек */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  margin: 15px 0;
+}
+
+/* Компонент SummonerSearch */
+.background-container {
+  background-image: url('../assets/4.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Высота контейнера на весь экран */
+}
+
+.summoner-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summoner-search h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.summoner-search input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  width: 300px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 16px;
+  color: var(--text-color);
+  background-color: #1a1a1a; /* Темный фон для поля ввода */
+}
+
+.summoner-search select {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  width: 320px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 16px;
+  color: var(--text-color);
+  background-color: #1a1a1a; /* Темный фон для селекта */
+}
+
+.arcane-button {
+  background-color: var(--primary-color); /* Используем новый основной цвет */
+  color: var(--text-color); /* Белый текст */
+  border: 2px solid var(--secondary-color); /* Яркая рамка */
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-family: 'Roboto Slab', serif;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.6s, background-color 0.6s, box-shadow 0.6s; /* Добавлено box-shadow */
+}
+
+.arcane-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%);
+  transition: transform 0.9s;
+  transform: translate(-50%, -50%) scale(0); /* Начальная анимация */
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.arcane-button:hover::after {
+  transform: translate(-50%, -50%) scale(1); /* Эффект свечения */
+}
+
+.arcane-button:hover {
+  background-color: var(--secondary-color); /* Новый цвет при наведении */
+  color: var(--dark-purple); /* Новый цвет текста при наведении */
+  box-shadow: 0 0 20px rgba(255, 199, 49, 0.5), 0 0 40px rgba(255, 199, 49, 0.2); /* Увеличенный эффект свечения */
+}
+
+.summoner-search p {
+  color: var(--secondary-color); /* Используем второй цвет для текста */
+  margin-top: 10px;
+}
+
+
+/* Компонент MatchHistory */
+.match-history {
+  background-color: var(--background-color); /* Темный фон для контейнера */
+  border-radius: 8px; /* Закругленные углы */
+  padding: 15px; /* Отступы */
+  margin: 20px 0; /* Отступы сверху и снизу */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для глубины */
+}
+
+.match-history ul {
+  list-style: none; /* Убираем стандартные маркеры списка */
+  padding: 0; /* Убираем отступы */
+}
+
+.match-history li {
+  margin: 10px 0; /* Отступ между элементами списка */
+}
+
+.match-history a {
+  color: var(--secondary-color); /* Цвет ссылок */
+  text-decoration: none; /* Убираем подчеркивание */
+  font-family: 'Roboto Slab', serif; /* Шрифт */
+  transition: color 0.3s; /* Плавный переход цвета */
+}
+
+.match-history a:hover {
+  color: var(--highlight-color); /* Цвет ссылки при наведении */
+}
+
+
+/* Компонент MatchDetails */
+.match-details {
+  display: flex; /* Используем flexbox для размещения колонок */
+  background-color: var(--background-color); /* Темный фон для контейнера */
+  border-radius: 8px; /* Закругленные углы */
+  padding: 20px; /* Отступы */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для глубины */
+  margin: 20px 0; /* Отступы сверху и снизу */
+}
+
+.left-side {
+  flex: 1; /* Занимает одну часть контейнера */
+  padding: 10px; /* Отступы внутри */
+  border-right: 2px solid var(--primary-color); /* Разделительная линия */
+}
+
+.champion-icon {
+  text-align: center; /* Центрируем иконку */
+  margin-bottom: 20px; /* Отступ между иконкой и статистикой */
+}
+
+.champion-icon img {
+  width: 100px; /* Ширина иконки чемпиона */
+  height: auto; /* Автоматическая высота */
+}
+
+.player-stats {
+  color: var(--text-color); /* Цвет текста для статистики */
+}
+
+.player-stats p {
+  margin: 5px 0; /* Отступы между строками статистики */
+}
+
+.right-side {
+  flex: 1; /* Занимает одну часть контейнера */
+  padding: 10px; /* Отступы внутри */
+  display: flex; /* Используем flexbox для размещения контента */
+  align-items: center; /* Центрируем по вертикали */
+  justify-content: center; /* Центрируем по горизонтали */
+  color: var(--text-color); /* Цвет текста для правой стороны */
+}

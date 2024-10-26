@@ -28,7 +28,7 @@ const SummonerSearch = ({ onSummonerFound }) => {
   };
 
   return (
-    <div>
+    <div className='summoner-search'>
       <h1>League of Legends Match History</h1>
 
       <input
@@ -50,7 +50,7 @@ const SummonerSearch = ({ onSummonerFound }) => {
         <option value="LA1">Latin America North (LA1)</option>
         <option value="LA2">Latin America South (LA2)</option>
       </select>
-      <button type="button" onClick={handleSearch}>Search</button>
+      <button className='arcane-button' type="button" onClick={handleSearch}>Search</button>
 
       {error && <p>{error}</p>}
     </div>

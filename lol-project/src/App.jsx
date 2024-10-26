@@ -17,7 +17,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <div>
+            <div className='background-container'>
               <SummonerSearch onSummonerFound={handleSummonerFound} />
               {puuid && <MatchHistory puuid={puuid} />}
             </div>

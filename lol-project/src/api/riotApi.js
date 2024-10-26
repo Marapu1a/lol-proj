@@ -7,17 +7,17 @@ export const getSummonerPUUID = (gameName, tagLine) => {
     return axios.get(`${pref}riot/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`)
         .then(response => {
             console.log(response.data.puuid)
-            return response.data; // Возвращаем данные, включая PUUID
+            return response.data;
         })
         .catch(error => {
             console.error('Ошибка при запросе PUUID:', error);
-            throw error; // Пробрасываем ошибку для обработки на уровне компонента
+            throw error;
         });
 };
 
-// Функция для получения списка из 20 matchId
+// Функция для получения списка из 5 matchId
 export const getMatchHistory = (puuid) => {
-    return axios.get(`${pref}lol/lol/match/v5/matches/by-puuid/${puuid}/ids`)
+    return axios.get(`${pref}lol/lol/match/v5/matches/by-puuid/${puuid}/ids?count=5`) //вручную количество матчей изменил, чтоб избежать ограничения RIOT
         .then(response => {
             return response.data;
         })
