@@ -32,6 +32,7 @@ app.get('/rito/:tagLine/*', async (req, res) => {
   const riotPath = req.params[0]; // Извлекаем оставшуюся часть пути после /riot/:tagLine/
   const region = getRegionByTagLine(tagLine); // Определяем регион по tagLine
   const apiKey = process.env.API_KEY; // Riot API ключ
+  console.log('Тестовое логирование апи-ключа:', apiKey)
 
   try {
     // Формируем финальный URL для запроса к Riot API. Из-за возникших проблем с подстановкой дополнительных параметров в запрос, пришлось писать тут квакозябру
