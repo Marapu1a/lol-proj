@@ -1,9 +1,11 @@
 import express from 'express';
 import axios from 'axios';
-import config from '../config.js';
+import { config } from 'dotenv';
 
+config({ path: '../.env' });
+console.log(process.env);
 const app = express();
-const port = config.port;
+const port = 3001;
 
 // Функция для конвертации tagLine в регион
 const getRegionByTagLine = (tagLine) => {
@@ -29,7 +31,7 @@ app.get('/rito/:tagLine/*', async (req, res) => {
   const { tagLine } = req.params; // Извлекаем tagLine (например, EUW1)
   const riotPath = req.params[0]; // Извлекаем оставшуюся часть пути после /riot/:tagLine/
   const region = getRegionByTagLine(tagLine); // Определяем регион по tagLine
-  const apiKey = config.API_KEY; // Riot API ключ
+  const apiKey = process.env.API_KEY; // Riot API ключ
 
   try {
     // Формируем финальный URL для запроса к Riot API. Из-за возникших проблем с подстановкой дополнительных параметров в запрос, пришлось писать тут квакозябру
@@ -47,7 +49,7 @@ app.get('/rito/:tagLine/*', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     // Логируем ошибку, если запрос не удался
-    console.log('Ошибка запроса к Riot API:', error.response?.status || error.message);
+    console.log(`Ошибка запроса к Riot API (${apiKey}):`, error.response?.status || error.message);
     res.status(error.response?.status || 500).send(error.message);
   }
 });
