@@ -15,11 +15,6 @@ const __dirname = path.dirname(__filename);
 // Указываем Express использовать папку dist для статических файлов
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Обрабатываем все маршруты, перенаправляя их на index.html
-app.get('*', (_, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
 // Функция для конвертации tagLine в регион
 const getRegionByTagLine = (tagLine) => {
   const regions = {
@@ -35,7 +30,6 @@ const getRegionByTagLine = (tagLine) => {
     LA1: 'americas',
     LA2: 'americas',
   };
-
   return regions[tagLine] || 'europe';
 };
 
@@ -44,7 +38,7 @@ app.get('/rito/:tagLine/*', async (req, res) => {
   const { tagLine } = req.params;
   const riotPath = req.params[0];
   const region = getRegionByTagLine(tagLine);
-  const apiKey = 'RGAPI-f6e1a1f8-5802-4109-a139-074a8b011135';
+  const apiKey = process.env.API_KEY;
   console.log('Тестовое логирование апи-ключа:', apiKey);
 
   try {
@@ -62,6 +56,11 @@ app.get('/rito/:tagLine/*', async (req, res) => {
     console.log(`Ошибка запроса к Riot API (${apiKey}):`, error.response?.status || error.message);
     res.status(error.response?.status || 500).send(error.message);
   }
+});
+
+// Обрабатываем все маршруты, перенаправляя их на index.html (должен быть внизу)
+app.get('*', (_, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // Запускаем сервер на указанном порту
