@@ -44,7 +44,7 @@ app.get('/rito/:tagLine/*', async (req, res) => {
   const { tagLine } = req.params;
   const riotPath = req.params[0];
   const region = getRegionByTagLine(tagLine);
-  const apiKey = process.env.API_KEY;
+  const apiKey = 'RGAPI-f6e1a1f8-5802-4109-a139-074a8b011135';
   console.log('Тестовое логирование апи-ключа:', apiKey);
 
   try {
