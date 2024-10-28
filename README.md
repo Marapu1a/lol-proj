@@ -14,3 +14,13 @@
 ## Функционал
 - Получение PUUID по никнейму и региону.
 - Отображение 5 последних матчей игрока.
+
+## Установка
+- клонируйте репозиторий: git clone https://github.com/Marapu1a/lol-proj
+- установите зависимости: npm install
+- cоздайте файл .env в корне с API ключом Riot API и переменной NODE_ENV: 
+    API_KEY=ваш_ключ
+    NODE_ENV = development
+    
+- запустите прокси-сервер: node server.js
+- запустите лайв-сервер: npm run dev
