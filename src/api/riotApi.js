@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const pref = '/api/rito/'
+const pref = '/rito/'
 
 // Функция для получения PUUID по gameName и tagLine
 export const getSummonerPUUID = (gameName, tagLine) => {
