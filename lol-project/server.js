@@ -2,7 +2,7 @@ import express from 'express';
 import axios from 'axios';
 import { config } from 'dotenv';
 
-config({ path: '../.env' });
+config();
 console.log(process.env);
 const app = express();
 const port = 3001;
