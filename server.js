@@ -1,10 +1,24 @@
 import express from 'express';
 import axios from 'axios';
 import { config } from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 config();
 const app = express();
 const port = process.env.PORT || 3001;
+
+// Определяем __dirname для ES-модулей
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Указываем Express использовать папку dist для статических файлов
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Обрабатываем все маршруты, перенаправляя их на index.html
+app.get('*', (_, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 // Функция для конвертации tagLine в регион
 const getRegionByTagLine = (tagLine) => {
@@ -22,39 +36,35 @@ const getRegionByTagLine = (tagLine) => {
     LA2: 'americas',
   };
 
-  return regions[tagLine] || 'europe'; // Если сервер неизвестен, используем Europe по умолчанию
+  return regions[tagLine] || 'europe';
 };
 
 // Универсальный обработчик для всех запросов Riot API
 app.get('/rito/:tagLine/*', async (req, res) => {
-  const { tagLine } = req.params; // Извлекаем tagLine (например, EUW1)
-  const riotPath = req.params[0]; // Извлекаем оставшуюся часть пути после /riot/:tagLine/
-  const region = getRegionByTagLine(tagLine); // Определяем регион по tagLine
-  const apiKey = process.env.API_KEY; // Riot API ключ
-  console.log('Тестовое логирование апи-ключа:', apiKey)
+  const { tagLine } = req.params;
+  const riotPath = req.params[0];
+  const region = getRegionByTagLine(tagLine);
+  const apiKey = process.env.API_KEY;
+  console.log('Тестовое логирование апи-ключа:', apiKey);
 
   try {
-    // Формируем финальный URL для запроса к Riot API. Из-за возникших проблем с подстановкой дополнительных параметров в запрос, пришлось писать тут квакозябру
     const riotApiUrl = `https://${region}.api.riotgames.com/${riotPath}${req.originalUrl.split('?')[1] ? `?${req.originalUrl.split('?')[1]}` : ''}`;
-    console.log(`URL запроса к Riot API: ${riotApiUrl}`); // Логируем URL для проверки
+    console.log(`URL запроса к Riot API: ${riotApiUrl}`);
 
-    // Отправляем запрос к Riot API
     const response = await axios.get(riotApiUrl, {
       headers: {
-        'X-Riot-Token': apiKey, // Передаём Riot API ключ в заголовке
+        'X-Riot-Token': apiKey,
       },
     });
 
-    // Возвращаем данные клиенту
     res.json(response.data);
   } catch (error) {
-    // Логируем ошибку, если запрос не удался
     console.log(`Ошибка запроса к Riot API (${apiKey}):`, error.response?.status || error.message);
     res.status(error.response?.status || 500).send(error.message);
   }
 });
 
-// Запускаем сервер на порту 3001
+// Запускаем сервер на указанном порту
 app.listen(port, () => {
   console.log(`Proxy server running on http://localhost:${port}`);
 });
