@@ -15,6 +15,9 @@ const __dirname = path.dirname(__filename);
 // Указываем Express использовать папку dist для статических файлов
 app.use(express.static(path.join(__dirname, 'dist')));
 
+const apiKey = process.env.API_KEY;
+console.log('Тестовое логирование апи-ключа:', apiKey);
+
 // Функция для конвертации tagLine в регион
 const getRegionByTagLine = (tagLine) => {
   const regions = {
@@ -35,11 +38,10 @@ const getRegionByTagLine = (tagLine) => {
 
 // Универсальный обработчик для всех запросов Riot API
 app.get('/rito/:tagLine/*', async (req, res) => {
+  console.log("Маршрут /rito/:tagLine/* вызван");
   const { tagLine } = req.params;
   const riotPath = req.params[0];
   const region = getRegionByTagLine(tagLine);
-  const apiKey = process.env.API_KEY;
-  console.log('Тестовое логирование апи-ключа:', apiKey);
 
   try {
     const riotApiUrl = `https://${region}.api.riotgames.com/${riotPath}${req.originalUrl.split('?')[1] ? `?${req.originalUrl.split('?')[1]}` : ''}`;
