@@ -3,9 +3,8 @@ import axios from 'axios';
 import { config } from 'dotenv';
 
 config();
-console.log(process.env);
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 // Функция для конвертации tagLine в регион
 const getRegionByTagLine = (tagLine) => {
