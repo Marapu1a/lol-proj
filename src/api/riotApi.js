@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const isProduction = process.env.NODE_ENV;
+const isProduction = process.env.NODE_ENV === 'production';
 const pref = isProduction ? '/rito/' : '/api/rito/';
+console.log(isProduction, pref)
 
 // Функция для получения PUUID по gameName и tagLine
 export const getSummonerPUUID = (gameName, tagLine) => {
