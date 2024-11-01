@@ -16,7 +16,6 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'dist')));
 
 const apiKey = process.env.API_KEY;
-console.log('Тестовое логирование апи-ключа:', apiKey);
 
 // Функция для конвертации tagLine в регион
 const getRegionByTagLine = (tagLine) => {
@@ -38,15 +37,12 @@ const getRegionByTagLine = (tagLine) => {
 
 // Универсальный обработчик для всех запросов Riot API
 app.get('/rito/:tagLine/*', async (req, res) => {
-  console.log("Маршрут /rito/:tagLine/* вызван");
   const { tagLine } = req.params;
   const riotPath = req.params[0];
   const region = getRegionByTagLine(tagLine);
 
   try {
     const riotApiUrl = `https://${region}.api.riotgames.com/${riotPath}${req.originalUrl.split('?')[1] ? `?${req.originalUrl.split('?')[1]}` : ''}`;
-    console.log(`URL запроса к Riot API: ${riotApiUrl}`);
-
     const response = await axios.get(riotApiUrl, {
       headers: {
         'X-Riot-Token': apiKey,
@@ -55,17 +51,15 @@ app.get('/rito/:tagLine/*', async (req, res) => {
 
     res.json(response.data);
   } catch (error) {
-    console.log(`Ошибка запроса к Riot API (${apiKey}):`, error.response?.status || error.message);
     res.status(error.response?.status || 500).send(error.message);
   }
 });
 
-// Обрабатываем все маршруты, перенаправляя их на index.html (должен быть внизу)
+// Обрабатываем все маршруты, перенаправляя их на index.html
 app.get('*', (_, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-// Запускаем сервер на указанном порту
 app.listen(port, () => {
   console.log(`Proxy server running on http://localhost:${port}`);
 });
