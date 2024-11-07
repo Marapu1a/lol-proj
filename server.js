@@ -32,7 +32,7 @@ const getRegionByTagLine = (tagLine) => {
     LA1: 'americas',
     LA2: 'americas',
   };
-  return regions[tagLine] || 'asia';
+  return regions[tagLine] || 'europe';
 };
 
 // Универсальный обработчик для всех запросов Riot API

@@ -3,8 +3,8 @@ import { getSummonerPUUID } from '../api/riotApi';
 
 // eslint-disable-next-line react/prop-types
 const SummonerSearch = ({ onSummonerFound }) => {
-  const [gameName, setGameName] = useState('Hide on bush');
-  const [tagLine, setTagLine] = useState('KR');
+  const [gameName, setGameName] = useState('Jack Torrance');
+  const [tagLine, setTagLine] = useState('RU');
   const [error, setError] = useState(null);
 
   const handleSearch = () => {
